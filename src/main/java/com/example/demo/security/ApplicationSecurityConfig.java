@@ -53,6 +53,7 @@ public class ApplicationSecurityConfig {
                                 new AntPathRequestMatcher("/"),
                                 new AntPathRequestMatcher("/index.html")
                         ).permitAll()
+                        .requestMatchers("/api/**").hasRole(STUDENT.name())
                         .anyRequest()
                         .authenticated()
         );
