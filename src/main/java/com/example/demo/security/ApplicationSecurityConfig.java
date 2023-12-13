@@ -12,6 +12,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static com.example.demo.security.ApplicationUserRole.ADMIN;
+import static com.example.demo.security.ApplicationUserRole.STUDENT;
+
 @Configuration
 public class ApplicationSecurityConfig {
 
@@ -27,10 +30,17 @@ public class ApplicationSecurityConfig {
         var annaSmithUser = User.builder()
                 .username("annasmith")
                 .password(passwordEncoder.encode("password"))
-                .roles("STUDENT")
+                .roles(STUDENT.name()) // ROLE_STUDENT
                 .build();
+        var lindaUser = User.builder()
+                .username("linda")
+                .password(passwordEncoder.encode("password123"))
+                .roles(ADMIN.name()) // ROLE_ADMIN
+                .build();
+
         return new InMemoryUserDetailsManager(
-                annaSmithUser
+                annaSmithUser,
+                lindaUser
         );
     }
 
